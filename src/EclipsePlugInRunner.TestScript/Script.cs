@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using EclipsePlugInRunner.TestScript;
-using VMS.TPS.Common.Model.API;
+using VMS.CA.Scripting;
 
-namespace VMS.TPS
+namespace VMS.DV.PD.Scripting
 {
     public class Script
     {
@@ -11,11 +11,12 @@ namespace VMS.TPS
         {
             Run(scriptContext.CurrentUser,
                 scriptContext.Patient,
-                scriptContext.Image,
-                scriptContext.StructureSet,
-                scriptContext.PlanSetup,
-                scriptContext.PlansInScope,
-                scriptContext.PlanSumsInScope,
+                //scriptContext.Image,
+                //scriptContext.StructureSet, //no structure set available in portal dosimetry scripting
+                //scriptContext.PlanSetup,
+                scriptContext.PDPlanSetup,
+                scriptContext.Patient.PDPlanSetups,
+                //scriptContext.PlansInScope, // no plansums in portal dosimetry scripting
                 mainWindow);
         }
 
@@ -24,15 +25,16 @@ namespace VMS.TPS
         public void Run(
             User user,
             Patient patient,
-            Image image,
-            StructureSet structureSet,
-            PlanSetup planSetup,
-            IEnumerable<PlanSetup> planSetupsInScope,
-            IEnumerable<PlanSum> planSumsInScope,
+            //DoseImage image,
+            //StructureSet structureSet,
+            PDPlanSetup pdPlanSetup,
+            IEnumerable<PDPlanSetup> pdPlanSetupsInScope,
+            //IEnumerable<PlanSum> planSumsInScope,
             Window mainWindow)
         {
-            var mainViewModel = new MainViewModel(planSetup);
+            var mainViewModel = new MainViewModel(pdPlanSetup);
             var mainView = new MainView(mainViewModel);
+            
             mainWindow.Content = mainView;
         }
     }

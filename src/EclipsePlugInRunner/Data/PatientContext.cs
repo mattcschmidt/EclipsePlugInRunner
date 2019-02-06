@@ -9,7 +9,7 @@ namespace EclipsePlugInRunner.Data
         {
             PlanningItemsInScope = new List<PlanningItem>();
         }
-
+        
         public string PatientId { get; set; }
         public PlanningItem ActivePlanSetup { get; set; }
         public List<PlanningItem> PlanningItemsInScope { get; set; }

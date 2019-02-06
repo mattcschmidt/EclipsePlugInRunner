@@ -1,19 +1,20 @@
 using System;
 using GalaSoft.MvvmLight;
-using VMS.TPS.Common.Model.API;
+using VMS.CA.Scripting;
+using VMS.DV.PD.Scripting;
 
 namespace EclipsePlugInRunner.ViewModels
 {
     internal class PlanningItemViewModel : ViewModelBase
     {
-        public PlanningItemViewModel(Course course, PlanningItem planningItem)
+        public PlanningItemViewModel(Course course, PDPlanSetup planningItem)
         {
             Course = course;
             PlanningItem = planningItem;
         }
 
         public Course Course { get; private set; }
-        public PlanningItem PlanningItem { get; private set; }
+        public PDPlanSetup PlanningItem { get; private set; }
 
         public string Id
         {
@@ -27,7 +28,7 @@ namespace EclipsePlugInRunner.ViewModels
 
         public DateTime? CreationDateTime
         {
-            get { return PlanningItem.CreationDateTime; }
+            get { return PlanningItem.HistoryDateTime; }
         }
 
         private bool _isChecked;

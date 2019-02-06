@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
-using VMS.TPS.Common.Model.API;
+using VMS.DV.PD.Scripting;
+using VMS.CA.Scripting;
 
 namespace EclipsePlugInRunner.Scripting
 {
@@ -29,11 +30,11 @@ namespace EclipsePlugInRunner.Scripting
             {
                 typeof(User),
                 typeof(Patient),
-                typeof(Image),
-                typeof(StructureSet),
-                typeof(PlanSetup),
-                typeof(IEnumerable<PlanSetup>),
-                typeof(IEnumerable<PlanSum>),
+                //typeof(Image),
+                //typeof(StructureSet),
+                typeof(PDPlanSetup),
+                typeof(IEnumerable<PDPlanSetup>),
+                //typeof(IEnumerable<PlanSum>),
                 typeof(Window)
             });
         }
@@ -44,11 +45,11 @@ namespace EclipsePlugInRunner.Scripting
             {
                 scriptContext.User,
                 scriptContext.Patient,
-                scriptContext.Image,
-                scriptContext.StructureSet,
+                //scriptContext.Image,
+                //scriptContext.StructureSet,
                 scriptContext.PlanSetup,
                 scriptContext.PlanSetupsInScope,
-                scriptContext.PlanSumsInScope,
+                //scriptContext.PlanSumsInScope,
                 scriptWindow
             });
         }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VMS.TPS.Common.Model.API;
+using VMS.CA.Scripting;
 
 namespace EclipsePlugInRunner.Helpers
 {
@@ -20,7 +20,7 @@ namespace EclipsePlugInRunner.Helpers
             return !string.IsNullOrEmpty(searchText)
                 ? _patients
                     .Where(p => IsMatch(p, searchText))
-                    .OrderByDescending(p => p.CreationDateTime)
+                    //.OrderByDescending(p => p..CreationDateTime)
                     .Take(MaximumResults)
                 : new PatientSummary[0];
         }

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using EclipsePlugInRunner.Scripting;
-using VMS.TPS;
-using VMS.TPS.Common.Model.API;
+using VMS.DV.PD.Scripting;
+using VMS.CA.Scripting;
 
 namespace EclipsePlugInRunner.TestRunner
 {

@@ -4,7 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using EclipsePlugInRunner.ViewModels;
-using VMS.TPS.Common.Model.API;
+using VMS.DV.PD.Scripting;
+using VMS.CA.Scripting;
 
 namespace EclipsePlugInRunner.Views
 {

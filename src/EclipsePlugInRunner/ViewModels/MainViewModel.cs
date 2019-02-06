@@ -8,7 +8,10 @@ using EclipsePlugInRunner.Helpers;
 using EclipsePlugInRunner.Scripting;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using VMS.TPS.Common.Model.API;
+using VMS.DV.PD.Scripting;
+using VMS.CA.Scripting;
+//using GalaSoft.MvvmLight.Command;
+//using GalaSoft.MvvmLight.Command;
 
 namespace EclipsePlugInRunner.ViewModels
 {
@@ -104,10 +107,10 @@ namespace EclipsePlugInRunner.ViewModels
             get { return _selectedPatientContext; }
             set { Set(ref _selectedPatientContext, value); }
         }
-
+        [STAThread]//need this for portal dosimetry to
         public void StartEclipse()
         {
-            _app = Application.CreateApplication();
+            _app = Application.CreateApplication(null,null);
             LoadPatientSummaries();
         }
 
@@ -223,7 +226,7 @@ namespace EclipsePlugInRunner.ViewModels
         private void UpdatePlanSetupsInScopeWhenPlanSetupVmIsCheckedChanged()
         {
             // Each planSetupVm is a PlanningItemViewModel that contains a PlanSetup
-            foreach (var planSetupVm in PlanningItems.Where(p => p.PlanningItem is PlanSetup))
+            foreach (var planSetupVm in PlanningItems.Where(p => p.PlanningItem is PDPlanSetup))
             {
                 planSetupVm.PropertyChanged += (o, e) =>
                 {
@@ -264,32 +267,35 @@ namespace EclipsePlugInRunner.ViewModels
             return new PlugInScriptContext(
                 _app.CurrentUser,
                 _patient,
-                null,    // Image
-                null,    // StructureSet
+                //null,    // Image
+                //null,    // StructureSet
                 GetActivePlanSetup(),
-                GetPlanSetupsInScope(),
-                GetPlanSumsInScope());
+                GetPlanSetupsInScope()
+                //GetPlanSumsInScope());
+                );
         }
 
-        private PlanSetup GetActivePlanSetup()
+        private PDPlanSetup GetActivePlanSetup()
         {
             return SelectedPlanSetup != null
-                ? (PlanSetup)SelectedPlanSetup.PlanningItem
+                ? SelectedPlanSetup.PlanningItem
                 : null;
         }
 
-        private IEnumerable<PlanSetup> GetPlanSetupsInScope()
+        private IEnumerable<PDPlanSetup> GetPlanSetupsInScope()
         {
-            return PlanSetupsInScope.Select(p => p.PlanningItem).Cast<PlanSetup>();
+            //return PlanSetupsInScope.Select(p => p.PlanningItem).Cast<PlanSetup>();
+            return PlanSetupsInScope.Select(p=>p.PlanningItem).Cast<PDPlanSetup>();
         }
+        //plansums no longer supported.
 
-        private IEnumerable<PlanSum> GetPlanSumsInScope()
-        {
-            return PlanningItems
-                .Where(p => p.PlanningItem is PlanSum && p.IsChecked)
-                .Select(p => p.PlanningItem)
-                .Cast<PlanSum>();
-        }
+        //private IEnumerable<PlanSum> GetPlanSumsInScope()
+        //{
+        //    return PlanningItems
+        //        .Where(p => p.PlanningItem is PlanSum && p.IsChecked)
+        //        .Select(p => p.PlanningItem)
+        //        .Cast<PlanSum>();
+        //}
 
         private void Exit()
         {
