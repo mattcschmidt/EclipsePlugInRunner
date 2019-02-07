@@ -24,6 +24,9 @@ namespace EclipsePlugInRunner.ViewModels
 
         private Application _app;
         private Patient _patient;
+        private DoseImage _doseImage;
+        private PDAnalysis _analysis;
+        private PDBeam _pdBeam;
 
         private IEnumerable<PatientSummary> _allPatientSummaries;
         private SmartSearch _smartSearch;
@@ -200,7 +203,7 @@ namespace EclipsePlugInRunner.ViewModels
         {
             _app.ClosePatient();   // Close previous patient, if any
             _patient = _app.OpenPatientById(PatientId);
-
+            
             if (_patient == null)
             {
                 OnUserMessaged("The patient \"" + PatientId + "\" was not found.");
@@ -267,11 +270,11 @@ namespace EclipsePlugInRunner.ViewModels
             return new PlugInScriptContext(
                 _app.CurrentUser,
                 _patient,
-                //null,    // Image
-                //null,    // StructureSet
+                null,
+                null,
+                null,
                 GetActivePlanSetup(),
                 GetPlanSetupsInScope()
-                //GetPlanSumsInScope());
                 );
         }
 

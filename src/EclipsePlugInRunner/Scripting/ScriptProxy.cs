@@ -30,11 +30,11 @@ namespace EclipsePlugInRunner.Scripting
             {
                 typeof(User),
                 typeof(Patient),
-                //typeof(Image),
-                //typeof(StructureSet),
+                typeof(DoseImage),
+                typeof(PDAnalysis),
+                typeof(PDBeam),
                 typeof(PDPlanSetup),
                 typeof(IEnumerable<PDPlanSetup>),
-                //typeof(IEnumerable<PlanSum>),
                 typeof(Window)
             });
         }
@@ -45,11 +45,11 @@ namespace EclipsePlugInRunner.Scripting
             {
                 scriptContext.User,
                 scriptContext.Patient,
-                //scriptContext.Image,
-                //scriptContext.StructureSet,
+                scriptContext.DoseImage,
+                scriptContext.PDAnalysis,
+                scriptContext.PDBeam,
                 scriptContext.PlanSetup,
                 scriptContext.PlanSetupsInScope,
-                //scriptContext.PlanSumsInScope,
                 scriptWindow
             });
         }

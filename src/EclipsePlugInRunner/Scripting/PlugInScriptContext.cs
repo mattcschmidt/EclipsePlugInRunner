@@ -9,27 +9,27 @@ namespace EclipsePlugInRunner.Scripting
         public PlugInScriptContext(
             User user,
             Patient patient,
-            //Image image,
-            //StructureSet structureSet,
-            PDPlanSetup planSetup,
+            DoseImage doseImage,
+            PDAnalysis analysis,
+            PDBeam pdBeam,
+            PDPlanSetup PDplanSetup,
             IEnumerable<PDPlanSetup> pdPlansetupsInScope
-            //IEnumerable<PlanSetup> planSetupsInScope,
-            //IEnumerable<PlanSum> planSumsInScope)
             )
         {
             User = user;
             Patient = patient;
-            //Image = image;
-            //StructureSet = structureSet;
-            PlanSetup = planSetup;
+            DoseImage = doseImage;
+            PDAnalysis = analysis;
+            PDBeam = pdBeam;
+            PlanSetup = PDplanSetup;
             PlanSetupsInScope = pdPlansetupsInScope;
-            //PlanSumsInScope = planSumsInScope;
         }
 
         public User User { get; set; }
         public Patient Patient { get; set; }
-        public Image Image { get; set; }
-        public StructureSet StructureSet { get; set; }
+        public DoseImage DoseImage { get; set; }
+        public PDAnalysis PDAnalysis { get; set; }
+        public PDBeam PDBeam { get; set; }
         public PDPlanSetup PlanSetup { get; set; }
         public IEnumerable<PDPlanSetup> PlanSetupsInScope { get; set; }
         //public IEnumerable<PlanSum> PlanSumsInScope { get; set; }

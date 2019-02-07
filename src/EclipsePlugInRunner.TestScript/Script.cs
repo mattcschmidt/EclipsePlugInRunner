@@ -11,30 +11,29 @@ namespace VMS.DV.PD.Scripting
         {
             Run(scriptContext.CurrentUser,
                 scriptContext.Patient,
-                //scriptContext.Image,
-                //scriptContext.StructureSet, //no structure set available in portal dosimetry scripting
-                //scriptContext.PlanSetup,
+                scriptContext.DoseImage,
+                scriptContext.Analysis,
+                scriptContext.PDBeam,
                 scriptContext.PDPlanSetup,
                 scriptContext.Patient.PDPlanSetups,
-                //scriptContext.PlansInScope, // no plansums in portal dosimetry scripting
                 mainWindow);
         }
 
         // This method must be present in any plug-in script that wants to use
-        // EclipsePlugInRunner (it couldn't be named Execute because it confuses Eclipse)
+        // PDPlugInRunner (it couldn't be named Execute because it confuses Eclipse)
         public void Run(
             User user,
             Patient patient,
-            //DoseImage image,
-            //StructureSet structureSet,
+            DoseImage doseImage,
+            PDAnalysis analysis,
+            PDBeam pdBeam,
             PDPlanSetup pdPlanSetup,
             IEnumerable<PDPlanSetup> pdPlanSetupsInScope,
-            //IEnumerable<PlanSum> planSumsInScope,
             Window mainWindow)
         {
             var mainViewModel = new MainViewModel(pdPlanSetup);
             var mainView = new MainView(mainViewModel);
-            
+
             mainWindow.Content = mainView;
         }
     }
