@@ -9,3 +9,6 @@ plugins/
 
 # NuGet packages
 packages/
+
+#visual studio version control
+.vs/
