@@ -24,9 +24,6 @@ namespace EclipsePlugInRunner.ViewModels
 
         private Application _app;
         private Patient _patient;
-        private DoseImage _doseImage;
-        private PDAnalysis _analysis;
-        private PDBeam _pdBeam;
 
         private IEnumerable<PatientSummary> _allPatientSummaries;
         private SmartSearch _smartSearch;
@@ -256,8 +253,8 @@ namespace EclipsePlugInRunner.ViewModels
         private void RunScript()
         {
             UpdateRecentPatientContexts();
-
-            _scriptProxy.RunWithNewWindow(CreatePlugInScriptContext());
+            PlugInScriptContext pisc = CreatePlugInScriptContext();
+            _scriptProxy.RunWithNewWindow(pisc);
 
             if (ShouldExit)
             {
@@ -270,9 +267,6 @@ namespace EclipsePlugInRunner.ViewModels
             return new PlugInScriptContext(
                 _app.CurrentUser,
                 _patient,
-                null,
-                null,
-                null,
                 GetActivePlanSetup(),
                 GetPlanSetupsInScope()
                 );
