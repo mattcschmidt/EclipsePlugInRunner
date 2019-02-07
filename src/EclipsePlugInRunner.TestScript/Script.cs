@@ -11,9 +11,6 @@ namespace VMS.DV.PD.Scripting
         {
             Run(scriptContext.CurrentUser,
                 scriptContext.Patient,
-                scriptContext.DoseImage,
-                scriptContext.Analysis,
-                scriptContext.PDBeam,
                 scriptContext.PDPlanSetup,
                 scriptContext.Patient.PDPlanSetups,
                 mainWindow);
@@ -24,9 +21,6 @@ namespace VMS.DV.PD.Scripting
         public void Run(
             User user,
             Patient patient,
-            DoseImage doseImage,
-            PDAnalysis analysis,
-            PDBeam pdBeam,
             PDPlanSetup pdPlanSetup,
             IEnumerable<PDPlanSetup> pdPlanSetupsInScope,
             Window mainWindow)

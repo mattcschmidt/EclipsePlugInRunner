@@ -227,7 +227,7 @@
                 >
                 <TextBlock
                     DockPanel.Dock="Top"
-                    Text="Set the PlanSetup(s) and PlanSum(s) is scope:"
+                    Text="Set the PlanSetup(s) in scope:"
                     />
                 <ListView
                     DockPanel.Dock="Top"
