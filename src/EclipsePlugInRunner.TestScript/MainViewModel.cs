@@ -28,7 +28,7 @@ namespace EclipsePlugInRunner.TestScript
                 new EvaluationTestDesc(EvaluationTestKind.GammaAreaLessThanOne,0,0.95,true)
             };
             //set the portal dose template to 3%/3mm with a ROI of Field+1cm
-            PDTemplate template = new PDTemplate(false, false, false,
+            PDTemplate template = new PDTemplate(false, false, false,false,
                 AnalysisMode.CU, NormalizationMethod.Unknown,
                 false, 0, ROIType.Field, 10, 0.03, 3, false, tests);
             foreach (PDBeam pdb in pdps.Beams)
@@ -36,9 +36,26 @@ namespace EclipsePlugInRunner.TestScript
                 if (pdb.PredictedDoseImage != null)
                 {
                     //get the portal dose analysis of the verification field.
-                    PDAnalysis pda = pdb.PortalDoseImages.Last().CreateTransientAnalysis(template, pdb.PredictedDoseImage);
-                    double gamma = pda.EvaluationTests.First().TestValue * 100;
-                    output += string.Format("Gamma pass rate for field {0} = {1:F2}%\n", pdb.Id, gamma);
+                    //PDAnalysis pda = pdb.PortalDoseImages.Last().CreateTransientAnalysis(template, pdb.PredictedDoseImage);
+                    //cannot create a new portal dose image in 15.5, instead just get the last portal dose analysis done.
+                    PDAnalysis pdAnalysis = pdb.PortalDoseImages.Last().Analyses.OrderBy(x => x.CreationDate).LastOrDefault();
+                    if (pdAnalysis == null)
+                    {
+                        output += string.Format("{0} has no analysis.", pdb.Id);
+                    }
+                    else
+                    {
+                        EvaluationTest gammaTest = pdAnalysis.EvaluationTests.FirstOrDefault(x => x.EvaluationTestKind == EvaluationTestKind.GammaAreaLessThanOne);
+                        //double gamma = pda.EvaluationTests.First().TestValue * 100;
+                        if (gammaTest == null)
+                        {
+                            output += string.Format("{0}: Gamma Area less than one not defined.", pdb.Id);
+                        }
+                        else
+                        {
+                            output += string.Format("Gamma pass rate for field {0} = {1:F2}%\n", pdb.Id, gammaTest.TestValue);
+                        }
+                    }
                 }
             }
             return output;

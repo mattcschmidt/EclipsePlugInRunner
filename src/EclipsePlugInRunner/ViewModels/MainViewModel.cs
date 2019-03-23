@@ -110,7 +110,7 @@ namespace EclipsePlugInRunner.ViewModels
         [STAThread]//need this for portal dosimetry to
         public void StartEclipse()
         {
-            _app = Application.CreateApplication(null,null);
+            _app = Application.CreateApplication();
             LoadPatientSummaries();
         }
 
